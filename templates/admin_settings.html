@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Settings</h2>
+<form method="post" action="{{ url_for('admin_settings') }}">
+  <label>GHL Positive Webhook URL</label><input name="ghl_url" value="{{ settings.get('ghl_url','') }}">
+  <label>GHL Headers JSON (optional)</label><input name="ghl_headers" value='{{ settings.get("ghl_headers","") }}'>
+  <button class="btn">Save</button>
+</form>
+{% endblock %}

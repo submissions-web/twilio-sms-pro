@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Twilio SMS Pro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+<header>
+  <h1>Twilio SMS Pro</h1>
+  <nav>
+    {% if current_user.is_authenticated %}
+      <a class="button" href="{{ url_for('index') }}">Dashboard</a>
+      <a class="button" href="{{ url_for('new_campaign') }}">New Campaign</a>
+      <a class="button" href="{{ url_for('jobs') }}">Jobs</a>
+      <a class="button" href="{{ url_for('messages') }}">Messages</a>
+      {% if current_user.role == 'admin' %}
+        <a class="button" href="{{ url_for('admin_users') }}">Users</a>
+        <a class="button" href="{{ url_for('admin_settings') }}">Admin</a>
+      {% endif %}
+      <a class="button" href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a class="button" href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+  </nav>
+</header>
+<div class="card">
+  {% with msgs = get_flashed_messages() %}
+    {% if msgs %}<div class="card">{% for m in msgs %}<div>{{ m }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+<footer>
+  Inbound webhook: <code>{{ webhook_url or '(not set)' }}</code>
+</footer>
+</body>
+</html>

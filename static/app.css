@@ -1,0 +1,13 @@
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;max-width:1100px;margin:24px auto;padding:0 16px;color:#111;background:#f8fafc}
+h1,h2{margin:12px 0}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+a.button,button,.btn{display:inline-block;padding:10px 14px;border:1px solid #ddd;border-radius:10px;text-decoration:none;background:#fff;cursor:pointer}
+.card{border:1px solid #eee;border-radius:12px;padding:16px;margin:12px 0;background:#fff}
+label{display:block;margin-top:8px;font-weight:600}
+input[type=text],input[type=password],input[type=email],input[type=number],textarea,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:8px}
+input[type=file]{margin-top:6px}
+table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff}th,td{border:1px solid #eee;padding:8px;text-align:left}
+.badge{padding:2px 8px;border-radius:8px;border:1px solid #ddd;font-size:12px}
+.status-running{background:#e8f5ff} .status-complete{background:#eafbe7} .status-failed{background:#fdeaea}
+nav a{margin-left:8px}
+footer{margin:24px 0;color:#666;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>New Campaign</h2>
+<form action="{{ url_for('create_campaign') }}" method="post" enctype="multipart/form-data">
+  <label>Campaign name</label><input type="text" name="name" required>
+  <label>CSV of recipients</label><input type="file" name="csv" accept=".csv" required>
+  <p>Default columns: <code>phone,name,company</code>. You can map below.</p>
+  <label>Message template</label>
+  <textarea name="template" rows="5" required>Hi {{name}}, this is FundFlex Capital. We can help {{company}} access fast working capital this week. Reply YES for options or STOP to opt out.</textarea>
+  <div class="grid">
+    <div>
+      <label>Rate limit (msgs/min)</label><input type="number" name="rate" value="30" min="1">
+      <label>Phone column</label><input type="text" name="col_phone" value="phone">
+      <label>Name column</label><input type="text" name="col_name" value="name">
+      <label>Company column</label><input type="text" name="col_company" value="company">
+    </div>
+    <div>
+      <label>Assignment strategy</label>
+      <select name="assignment">
+        <option value="none">None (all under you)</option>
+        <option value="round_robin">Round Robin</option>
+        <option value="percent_split">Percent Split</option>
+      </select>
+      <label>Assign to users (hold Ctrl/Cmd to multi-select)</label>
+      <select name="users" multiple size="6">
+        {% for u in users %}
+          <option value="{{ u['id'] }}">{{ u['email'] }} ({{ u['role'] }})</option>
+        {% endfor %}
+      </select>
+      <label>Percent split JSON (e.g. {"user_id":50,"user_id2":50})</label>
+      <input type="text" name="percent_json" placeholder='{"2":60,"3":40}'>
+    </div>
+  </div>
+  <button class="btn">Create Campaign</button>
+</form>
+{% endblock %}

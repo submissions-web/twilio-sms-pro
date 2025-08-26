@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Messages</h2>
+<form method="get">
+  <div class="grid">
+    <div><label>Search (phone or text)</label><input type="text" name="q" value="{{ q or '' }}"></div>
+    <div><label>Status</label>
+      <select name="status">
+        <option value="">Any</option>
+        <option value="sent" {% if status=='sent' %}selected{% endif %}>sent</option>
+        <option value="failed" {% if status=='failed' %}selected{% endif %}>failed</option>
+        <option value="inbound" {% if status=='inbound' %}selected{% endif %}>inbound</option>
+      </select>
+    </div>
+  </div>
+  <button class="btn">Filter</button>
+</form>
+<table>
+  <tr><th>Time</th><th>To/From</th><th>Direction</th><th>User</th><th>Status</th><th>Snippet</th></tr>
+  {% for m in items %}
+    <tr>
+      <td>{{ m['ts'] }}</td>
+      <td>{{ m['peer'] }}</td>
+      <td>{{ m['direction'] }}</td>
+      <td>{{ m['user_email'] }}</td>
+      <td>{{ m['status'] }}</td>
+      <td>{{ m['snippet'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

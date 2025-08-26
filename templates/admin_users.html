@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>User Management</h2>
+<form method="post" action="{{ url_for('admin_users_add') }}" class="card">
+  <h3>Add User</h3>
+  <label>Email</label><input name="email" type="email" required>
+  <label>Password</label><input name="password" type="password" required>
+  <label>Role</label>
+  <select name="role"><option value="user">user</option><option value="admin">admin</option></select>
+  <button class="btn">Add</button>
+</form>
+
+<table>
+  <tr><th>ID</th><th>Email</th><th>Role</th><th>Created</th></tr>
+  {% for u in users %}
+    <tr><td>{{ u['id'] }}</td><td>{{ u['email'] }}</td><td>{{ u['role'] }}</td><td>{{ u['created_at'] }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

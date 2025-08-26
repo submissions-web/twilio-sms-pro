@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Jobs</h2>
+<table>
+  <tr><th>ID</th><th>Name</th><th>Status</th><th>Progress</th><th>Owner</th><th>Actions</th></tr>
+  {% for j in jobs %}
+  <tr class="status-{{ 'running' if j['status']=='running' else ('complete' if j['status']=='complete' else 'failed') }}">
+    <td>{{ j['id'] }}</td><td>{{ j['name'] }}</td><td>{{ j['status'] }}</td>
+    <td>{{ j['sent'] }}/{{ j['total'] }}</td><td>{{ j['owner_email'] }}</td>
+    <td>
+      <a class="btn" href="{{ url_for('job_detail', job_id=j['id']) }}">Open</a>
+      {% if current_user.role=='admin' %}
+        {% if j['status']=='pending' %}<a class="btn" href="{{ url_for('start_job', job_id=j['id']) }}">Start</a>{% endif %}
+        {% if j['status']=='running' %}<a class="btn" href="{{ url_for('pause_job', job_id=j['id']) }}">Pause</a>{% endif %}
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

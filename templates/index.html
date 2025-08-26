@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="grid">
+  <div class="card">
+    <h3>Your Jobs</h3>
+    <table>
+      <tr><th>ID</th><th>Name</th><th>Status</th><th>Progress</th><th></th></tr>
+      {% for j in jobs %}
+      <tr>
+        <td>{{ j['id'] }}</td><td>{{ j['name'] }}</td>
+        <td><span class="badge">{{ j['status'] }}</span></td>
+        <td>{{ j['sent'] }}/{{ j['total'] }}</td>
+        <td><a class="btn" href="{{ url_for('job_detail', job_id=j['id']) }}">View</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="card">
+    <h3>Recent Messages</h3>
+    <table>
+      <tr><th>To</th><th>Status</th><th>SID</th><th>Error</th></tr>
+      {% for r in recent %}
+      <tr><td>{{ r['to'] }}</td><td>{{ r['status'] }}</td><td>{{ r['sid'] }}</td><td>{{ r['error'] }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

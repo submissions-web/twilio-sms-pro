@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Job #{{ job['id'] }} — {{ job['name'] }}</h2>
+<p>Status: <span class="badge">{{ job['status'] }}</span> | Progress: {{ job['sent'] }}/{{ job['total'] }} | Owner: {{ job['owner_email'] }}</p>
+<p>
+  {% if current_user.role=='admin' %}
+    {% if job['status'] in ['pending','paused'] %}<a class="btn" href="{{ url_for('start_job', job_id=job['id']) }}">Start</a>{% endif %}
+    {% if job['status']=='running' %}<a class="btn" href="{{ url_for('pause_job', job_id=job['id']) }}">Pause</a>{% endif %}
+  {% endif %}
+  <a class="btn" href="{{ url_for('download_log', job_id=job['id']) }}">Download log</a>
+</p>
+<div class="card">
+  <h3>Recent messages</h3>
+  <table>
+    <tr><th>To</th><th>Assigned User</th><th>Status</th><th>SID</th><th>Error</th></tr>
+    {% for r in recent %}
+      <tr><td>{{ r['to'] }}</td><td>{{ r['user_email'] }}</td><td>{{ r['status'] }}</td><td>{{ r['sid'] }}</td><td>{{ r['error'] }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+<script>
+  setInterval(()=>{ fetch("{{ url_for('job_status', job_id=job['id']) }}")
+    .then(r=>r.json()).then(j=>{ if (j.status === 'running') location.reload(); }) }, 5000);
+</script>
+{% endblock %}
