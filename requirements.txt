@@ -3,7 +3,7 @@ Flask-Login==0.6.3
 Flask-Bcrypt==1.0.1
 python-dotenv==1.0.1
 twilio==9.3.1
-pandas==2.2.2 --only-binary=:all:
+pandas==2.3.2
 PyYAML==6.0.2
 requests==2.32.3
 gunicorn==21.2.0
