@@ -8,11 +8,20 @@ services:
       - key: FLASK_SECRET_KEY
         generateValue: true
       - key: TWILIO_ACCOUNT_SID
+        value: ""
       - key: TWILIO_AUTH_TOKEN
+        value: ""
       - key: TWILIO_MESSAGING_SERVICE_SID
+        value: ""
       - key: TWILIO_FROM_NUMBER
+        value: ""
       - key: ADMIN_EMAIL
+        value: ""
       - key: ADMIN_PASSWORD
+        value: ""
       - key: PUBLIC_WEBHOOK_URL
+        value: ""
       - key: GHL_POSITIVE_WEBHOOK_URL
+        value: ""
       - key: GHL_HEADERS_JSON
+        value: ""
