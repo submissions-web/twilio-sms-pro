@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twilio Settings</title>
+</head>
+<body>
+  <h2>Update Twilio Settings</h2>
+  <form method="POST">
+    <label>Account SID</label><br>
+    <input type="text" name="account_sid" value="{{ settings.account_sid or '' }}"><br><br>
+
+    <label>Auth Token</label><br>
+    <input type="text" name="auth_token" value="{{ settings.auth_token or '' }}"><br><br>
+
+    <label>Messaging Service SID</label><br>
+    <input type="text" name="messaging_service_sid" value="{{ settings.messaging_service_sid or '' }}"><br><br>
+
+    <button type="submit">Save</button>
+  </form>
+
+  <br>
+  <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>
