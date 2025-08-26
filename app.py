@@ -1,7 +1,7 @@
-import os
+   import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from twilio.rest import Client
 
@@ -108,24 +108,9 @@ def send_sms(to_number, body):
     )
 
 # ------------------------
-# Quick Test Route
+# Initialize DB + Admin User (Flask 3+ safe)
 # ------------------------
-@app.route("/send-test")
-@login_required
-def send_test():
-    try:
-        # Replace this with your own test number
-        test_number = "+15555555555"
-        send_sms(test_number, f"Hello {current_user.email}, this is a test SMS from your app!")
-        return f"✅ Test SMS sent to {test_number}"
-    except Exception as e:
-        return f"❌ Error: {str(e)}"
-
-# ------------------------
-# Initialize Admin User
-# ------------------------
-@app.before_first_request
-def create_admin():
+with app.app_context():
     db.create_all()
     admin_email = os.getenv("ADMIN_EMAIL", "admin@example.com")
     admin_password = os.getenv("ADMIN_PASSWORD", "password")
